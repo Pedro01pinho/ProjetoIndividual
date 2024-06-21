@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Outskirts | Pergunta</title>
+
+    <script src="./js/sessao.js"></script>
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/estilo.css">
+    <link rel="icon" href="./assets/imgs/Captura de tela 2024-05-21 143238.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="./css/alerta-erro.css">
+</head>
+
+<body>
+    <!--Header-->
+
+    <header>
+        <div class="header">
+            <div class="header_left">
+                <a href="index.html"><img src="./assets/imgs/Captura de tela 2024-05-21 143238.png"
+                        alt="logo do projeto"></a>
+            </div>
+            <nav class="navbar">
+                <div class="header_center">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                    </ul>
+                </div>
+                <div class="header_right">
+                    <ul>
+                        <img src="./assets/headerLinha.png" alt="">
+                        <li><a href="./Login.html">Entrar</a></li>
+                        <li><a href="./cadastro.html">Cadastrar</a></li>
+                    </ul>
+            </nav>
+        </div>
+        </div>
+    </header>
+
+
+    <div class="login">
+        <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="card card-login">
+                <h3>Selecione o seu gênero músical preferido</h3>
+                <div class="formulario">
+                    <div class="campo">
+                        <select id="select_genero">
+                            <option>Funk</option>
+                            <option>Rap</option>
+                            <option>Samba</option>
+                            <option>Pagode</option>
+                        </select>
+                    </div>
+                    <h3>Escreva o nome do seu álbum favorito</h3>
+                    <div class="campo">
+                        <input id="input_album" placeholder="Escreva aqui" type="text">
+                    </div>
+                    <h3>Escreva o nome da sua música preferida</h3>
+                    <div class="campo">
+                        <input type="text" placeholder="Insira aqui" id="input_musica">
+                    </div>
+                    <div class="botao_login">
+                        <button class="botao" onclick="entrar()">Entrar</button>
+                        <button class="botao" ><a href="./dashboard/dashboard.html">Pular</a></button>
+                    </div>
+                </div>
+                <div id="div_aguardar" class="loading-div">
+                    <img src="../public/assets/Filled fading balls.gif" id="loading-gif">
+                </div>
+
+                <div id="div_erro" style="display:none;">
+                    <div id="mensagem_erro"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--footer inicio-->
+    <div class="footer">
+        <div class="container">
+            <!-- <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
+            <span class="version">v1.0.0</span> -->
+            <img id='viewcoffee' class='viewcoffee' src='./assets/imgs/Captura de tela 2024-05-21 143238.png'>
+        </div>
+    </div>
+    <!--footer fim-->
+</body>
+
+</html>
+<script>
+    var ID_USUARIO = sessionStorage.ID_USUARIO;
+
+    function entrar() {
+        aguardar();
+        var generoVar = select_genero.value;
+        var albumVar = input_album.value;
+        var musicaVar = input_musica.value;
+
+        if (generoVar == "" || albumVar == "" || musicaVar == "") {
+            div_erro.style.display = "block";
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+        fetch("/musica/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                generoServer: generoVar,
+                albumServer: albumVar,
+                musicaServer: musicaVar,
+                idServer: ID_USUARIO
+                // empresaServer: empresaVar
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    div_erro.style.display = "block";
+
+                    mensagem_erro.innerHTML =
+                        "Respostas cadastradas com sucesso! Redirecionando para tela de Dashboard...";
+
+                    setTimeout(() => {
+                        window.location = "dashboard.html";
+                    }, "5000");
+
+                    
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+    }
+    function sumirMensagem() {
+    div_erro.style.display = "none";
+  }
+</script>
