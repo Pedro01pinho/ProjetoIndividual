@@ -51,27 +51,20 @@
         </div>
         <div class="container">
             <div class="card card-login">
-                <h3>Selecione o seu gênero músical preferido</h3>
+                <h3>Você apoia esse projeto?</h3>
                 <div class="formulario">
                     <div class="campo">
-                        <select id="select_genero">
-                            <option>Funk</option>
-                            <option>Rap</option>
-                            <option>Samba</option>
-                            <option>Pagode</option>
+                        <select id="select_projeto">
+                            <option>Sim</option>
+                            <option>Não</option>
                         </select>
                     </div>
-                    <h3>Escreva o nome do seu álbum favorito</h3>
-                    <div class="campo">
-                        <input id="input_album" placeholder="Escreva aqui" type="text">
-                    </div>
-                    <h3>Escreva o nome da sua música preferida</h3>
-                    <div class="campo">
-                        <input type="text" placeholder="Insira aqui" id="input_musica">
-                    </div>
+                    <center>
+                        <h5>Se você já respondeu essa pergunta, não responda novamente</h5>
+                    </center>
                     <div class="botao_login">
                         <button class="botao" onclick="entrar()">Entrar</button>
-                        <button class="botao" ><a href="./projeto.html">Pular</a></button>
+                        <button class="botao" ><a href="./dashboard/dashboard.html">Pular</a></button>
                     </div>
                 </div>
                 <div id="div_aguardar" class="loading-div">
@@ -102,11 +95,9 @@
 
     function entrar() {
         aguardar();
-        var generoVar = select_genero.value;
-        var albumVar = input_album.value;
-        var musicaVar = input_musica.value;
-
-        if (generoVar == "" || albumVar == "" || musicaVar == "") {
+        var projetoVar = select_projeto.value;
+      //estrutura de condição padrão, se nada for selecionado, não irá para o fetch
+        if (projetoVar == "") {
             div_erro.style.display = "block";
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
             finalizarAguardar();
@@ -115,7 +106,7 @@
         else {
             setInterval(sumirMensagem, 5000)
         }
-        fetch("/musica/cadastrar", {
+        fetch("/musica/Projeto", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -123,9 +114,7 @@
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
-                generoServer: generoVar,
-                albumServer: albumVar,
-                musicaServer: musicaVar,
+                projetoServer: projetoVar,
                 idServer: ID_USUARIO
                 // empresaServer: empresaVar
             }),
@@ -137,10 +126,10 @@
                     div_erro.style.display = "block";
 
                     mensagem_erro.innerHTML =
-                        "Respostas cadastradas com sucesso! Redirecionando para próxima tela";
+                        "Respostas cadastradas com sucesso! Redirecionando para tela de Dashboard...";
 
                     setTimeout(() => {
-                        window.location = "./projeto.html";
+                        window.location = "./dashboard/dashboard.html";
                     }, "5000");
 
                     

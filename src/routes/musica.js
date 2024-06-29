@@ -7,4 +7,8 @@ router.post("/cadastrar", function (req, res) {
     musicaController.cadastrar(req, res);
 })
 
+router.post("/Projeto", function (req, res) {
+    musicaController.cadastrarProjeto(req, res);
+})
+
 module.exports = router

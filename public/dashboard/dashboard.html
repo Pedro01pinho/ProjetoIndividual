@@ -21,6 +21,8 @@
 
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- plugin porcentagem  -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.4.0/dist/chartjs-plugin-datalabels.min.js"></script>
 
     <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
@@ -74,10 +76,11 @@
                 <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
                 <canvas id="myChartCanvas2"></canvas>
                 <canvas id="myChartCanvas3"></canvas>
+                <div id="my-legend-con" class="legend-con"></div>
             </div>
             <div class="dash2 espaco">
 
-               
+
                 <div class="grafico canvas3">
                     <canvas id="myChartCanvas"></canvas>
                 </div>
@@ -89,15 +92,15 @@
                     <div id="corpo_dentro" class="corpo_dentro"></div>
                 </div>
                 <!-- <div class="grafico canvas3"> -->
-                    <!-- <canvas id="myChartCanvas"></canvas> -->
-                </div>
+                <!-- <canvas id="myChartCanvas"></canvas> -->
             </div>
-            <!-- <div class="btns-dash">
+        </div>
+        <!-- <div class="btns-dash">
                 <canvas id="myChartCanvas3"></canvas>
             </div> -->
-            <!-- <div id="graficos">
+        <!-- <div id="graficos">
             </div> -->
-        </div>
+    </div>
     </div>
 
 
@@ -467,7 +470,7 @@
 
         // Criando estrutura para plotar gráfico - config
         const config = {
-            type: 'bar',
+            type: 'doughnut',
             data: dados,
             options: {
                 scales: {
@@ -476,8 +479,23 @@
                     }
                 }
             },
-
+            /*plugin para porcentagem */
+            plugins: {
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        let percentage = (value * 100 / sum).toFixed(2) + "%";
+                        return percentage;
+                    },
+                    color: '#fff'
+                }
+            }
         };
+         $('#my-legend-con').html(myChart.generateLegend());
 
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(

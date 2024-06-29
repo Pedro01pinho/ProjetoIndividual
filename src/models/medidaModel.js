@@ -9,7 +9,7 @@ function buscarUltimasMedidas(id) {
 }
 
 function listarPorUsuario(id) {
-    var instrucaoSql = `select m.nome, m.Album , m.genero from musica m join usuario u on m.fkUsuario = u.id where fkUsuario = ${id};`;
+    var instrucaoSql = `select m.nome, m.Album , m.genero from musica m join usuario u on m.fkUsuario = u.id where m.fkUsuario = ${id};`;
 
     console.log("executando a instrução SQL: \n" + instrucaoSql);
  return database.executar(instrucaoSql);
