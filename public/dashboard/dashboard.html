@@ -88,7 +88,16 @@
             <div class="dash2 espaco">
 
                 <div class="cont_musica">
-                    <!-- <p class="titulo_mus">Músicas favoritas</p> -->
+                     <p class="titulo_mus">Músicas favoritas</p> 
+                    <div id="corpo_dentro" class="corpo_dentro"></div>
+                </div>
+                <!-- <div class="grafico canvas3"> -->
+                <!-- <canvas id="myChartCanvas"></canvas> -->
+            </div>
+            <div class="dash2 espaco">
+                <!-- ranking  -->
+                <div class="cont_musica">
+                     <p class="titulo_mus">Usuarios com mais músicas cadastradas</p> 
                     <div id="corpo_dentro" class="corpo_dentro"></div>
                 </div>
                 <!-- <div class="grafico canvas3"> -->
@@ -245,7 +254,51 @@
                 }
             })
     }
+    /* função do ranking*/
+    function listarPorUsuario() {
+        
+        fetch(`/medidas/listar`)
+            // body: JSON.stringify({
+            //     idServer: ID_USUARIO
+            // })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        var corpo = document.getElementById("corpo_dentro");
+                        var mensagem = document.createElement("h1");
+                        corpo.style.alignSelf = "center";
+                        mensagem.innerHTML = `Nenhuma música adicionada até o momento`;
+                        corpo.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado";
+                    }
 
+
+                    resposta.json().then(function (resposta) {
+
+
+                        var corpo = document.getElementById("corpo_dentro")
+                        for (var index = 0; index < resposta.length; index++) {
+                            var musica = resposta[index];
+
+                            var div_Funcionario = document.createElement("div");
+                            var nome_usuario = document.createElement("span");                            
+                            var span_musica = document.createElement('span');
+
+                            nome_usuario.innerHTML = `Nome: ${musica.nome}`;
+                            span_musica.innerHTML = `Gênero: ${musica.qtdMusica}`;
+
+                            div_Funcionario.className = "card_funcionario";
+
+                            div_Funcionario.appendChild(nome_usuario);
+                            div_Funcionario.appendChild(span_musica);
+                            corpo.appendChild(div_Funcionario);
+
+
+                        }
+                    })
+                }
+            })
+    }
 
     function obterDadosGrafico(id) {
         var id = sessionStorage.ID_USUARIO
