@@ -14,6 +14,17 @@ function listarPorUsuario(id) {
     console.log("executando a instrução SQL: \n" + instrucaoSql);
  return database.executar(instrucaoSql);
 }
+/* comando do mysql para ranking*/ 
+function listarUsuario() {
+    var instrucaoSql = `SELECT u.nome, COUNT(m.nome) AS quantidade_musicas
+    FROM usuario u
+    JOIN musica m ON m.fkUsuario = u.id
+    GROUP BY u.nome
+    ORDER BY quantidade_musicas desc;`;
+
+    console.log("executando a instrução SQL: \n" + instrucaoSql);
+ return database.executar(instrucaoSql);
+}
 
 function buscarGeneroUsuario(id) {
  var instrucaoSql = `SELECT COUNT(m.genero) AS quantidade_generos, m.genero, u.nome  
@@ -55,5 +66,6 @@ module.exports = {
     buscarMedidasEmTempoReal,
     buscarGeneroUsuario,
     buscarGenero,
-    listarPorUsuario
+    listarPorUsuario,
+    listarUsuario
 }

@@ -94,11 +94,12 @@
                 <!-- <div class="grafico canvas3"> -->
                 <!-- <canvas id="myChartCanvas"></canvas> -->
             </div>
+            <br><br><br>
             <div class="dash2 espaco">
                 <!-- ranking  -->
                 <div class="cont_musica">
                      <p class="titulo_mus">Usuarios com mais músicas cadastradas</p> 
-                    <div id="corpo_dentro" class="corpo_dentro"></div>
+                    <div id="corpo_dentro2" class="corpo_dentro"></div>
                 </div>
                 <!-- <div class="grafico canvas3"> -->
                 <!-- <canvas id="myChartCanvas"></canvas> -->
@@ -127,6 +128,7 @@
     window.onload = obterDadosGrafico2();
     window.onload = obterDadosGrafico3();
     window.onload = listarPorUsuario();
+    window.onload = listarUsuario();
 
     // function exibirAquariosDoUsuario() {
     //     var aquarios = JSON.parse(sessionStorage.AQUARIOS);
@@ -255,7 +257,7 @@
             })
     }
     /* função do ranking*/
-    function listarPorUsuario() {
+    function listarUsuario() {
         
         fetch(`/medidas/listar`)
             // body: JSON.stringify({
@@ -264,7 +266,7 @@
             .then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {
-                        var corpo = document.getElementById("corpo_dentro");
+                        var corpo = document.getElementById("corpo_dentro2");
                         var mensagem = document.createElement("h1");
                         corpo.style.alignSelf = "center";
                         mensagem.innerHTML = `Nenhuma música adicionada até o momento`;
@@ -276,7 +278,7 @@
                     resposta.json().then(function (resposta) {
 
 
-                        var corpo = document.getElementById("corpo_dentro")
+                        var corpo = document.getElementById("corpo_dentro2")
                         for (var index = 0; index < resposta.length; index++) {
                             var musica = resposta[index];
 
@@ -285,7 +287,7 @@
                             var span_musica = document.createElement('span');
 
                             nome_usuario.innerHTML = `Nome: ${musica.nome}`;
-                            span_musica.innerHTML = `Gênero: ${musica.qtdMusica}`;
+                            span_musica.innerHTML = `Quantidade de músicas: ${musica.quantidade_musicas}`;
 
                             div_Funcionario.className = "card_funcionario";
 

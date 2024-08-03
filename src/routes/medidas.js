@@ -19,6 +19,10 @@ router.get("/listar/:id", function (req, res) {
     medidaController.listarPorUsuario(req, res);
 });
 
+router.get("/listar", function (req, res) {
+    medidaController.listarUsuario(req, res);
+});
+
 router.get("/tempo-real/:idAquario", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);
 })
