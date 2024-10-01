@@ -79,8 +79,6 @@
                 <!-- <div id="my-legend-con" class="legend-con"></div> -->
             </div>
             <div class="dash2 espaco">
-
-
                 <div class="grafico canvas3">
                     <canvas id="myChartCanvas"></canvas>
                 </div>
@@ -88,7 +86,7 @@
             <div class="dash2 espaco">
 
                 <div class="cont_musica">
-                     <p class="titulo_mus">Músicas favoritas</p> 
+                    <p class="titulo_mus">Músicas favoritas</p>
                     <div id="corpo_dentro" class="corpo_dentro"></div>
                 </div>
                 <!-- <div class="grafico canvas3"> -->
@@ -97,10 +95,10 @@
             <br><br><br>
             <div class="dash2 espaco">
                 <!-- ranking  -->
-                <div class="cont_musica">
-                     <p class="titulo_mus">Usuarios com mais músicas cadastradas</p> 
+                 <div class="cont_musica">
+                    <p class="titulo_mus">Usuarios com mais músicas cadastradas</p>
                     <div id="corpo_dentro2" class="corpo_dentro"></div>
-                </div>
+                </div> 
                 <!-- <div class="grafico canvas3"> -->
                 <!-- <canvas id="myChartCanvas"></canvas> -->
             </div>
@@ -258,7 +256,7 @@
     }
     /* função do ranking*/
     function listarUsuario() {
-        
+
         fetch(`/medidas/listar`)
             // body: JSON.stringify({
             //     idServer: ID_USUARIO
@@ -283,10 +281,10 @@
                             var musica = resposta[index];
 
                             var div_Funcionario = document.createElement("div");
-                            var nome_usuario = document.createElement("span");                            
+                            var nome_usuario = document.createElement("span");
                             var span_musica = document.createElement('span');
 
-                            nome_usuario.innerHTML = `Nome: ${musica.nome}`;
+                            nome_usuario.innerHTML = `${index + 1}°     ${musica.nome}`;
                             span_musica.innerHTML = `Quantidade de músicas: ${musica.quantidade_musicas}`;
 
                             div_Funcionario.className = "card_funcionario";
@@ -338,7 +336,7 @@
                 label: 'N° de tentativas da cruzadinha',
                 data: [],
                 fill: false,
-                // borderColor: 'rgb(75, 192, 192)',
+                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
             }]
         };
@@ -411,7 +409,8 @@
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)'
                 ],
                 hoverOffset: 4,
                 tension: 0.1
@@ -480,14 +479,14 @@
         // Criando estrutura para plotar gráfico - labels
         let labels = [];
         let data = [];
-        let percentage = (data.length * 100 / labels.length).toFixed(2) + "%";
+        var percentage = (data.length * 100 / labels.length).toFixed(2) + "%";
         // Criando estrutura para plotar gráfico - dados
         let dados = {
             labels: labels,
             datasets: [{
                 label: 'N° de músicas cadastradas no site',
-                data:data,
-                 fill: false,
+                data: data,
+                fill: false,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 159, 64, 0.2)',
@@ -516,7 +515,7 @@
         }
 
         console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('O gráfic4 será plotado com os respectivos valores:')
         console.log('Labels:')
         console.log(labels)
         console.log('Dados:')
@@ -526,19 +525,46 @@
         // Criando estrutura para plotar gráfico - config
         const config = {
             type: 'doughnut',
+            animation: {
+                animateScale: true
+            },
             data: dados,
             options: {
-                 scales: {
-                     y: {
-                         beginAtZero: true
-                     }
-                 },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                /*porcentagem aparecer ao colocar o mouse em cima
+                coloque o label aqui*/
+                tooltips: {
+                    enabled: true,
+                    mode: 'label',
+                    callbacks: {
+                        label:
+                        function (tooltipItem, data) {
+                            var indice = tooltipItem.index;
+                            return (data.datasets[0].data[indice] * 100 / (labels.length + 1)).toFixed(2) + '%' + ' - Total de músicas cadastradas pelo site';
+                        }
+                    }
+                 }
+                 //, responsive: true,
+                // maintainAspectRatio: false,
+                // cutoutPercentage: 50,
+                // tooltips: {
+                //     callbacks: {
+                //         label: function (tooltipItem, data) {
+                //             return data['labels'][tooltipItem['index']] + ': ' +  (data.datasets[0].data[indice] * 100 / (labels.length + 1)).toFixed(2) + '%';
+                //         }
+                //     }
+                // }
+                ,
                 /*plugin para porcentagem */
-            /*plugins: {
+                plugins: {
                     datalabels: {
                         formatter: (value, ctx) => {
                             let sum = 0;
-                            let dataArr = ctx.chart.dados.datasets[0].data;
+                            let dataArr = ctx.myChart.dados.datasets[0].data;
                             dataArr.map(data => {
                                 sum += data;
                             });
@@ -547,9 +573,10 @@
                         },
                         color: '#fff'
                     }
-                }*/
+                }
             }
         }
+
 
         // $('#my-legend-con').html(myChart.generateLegend());
 

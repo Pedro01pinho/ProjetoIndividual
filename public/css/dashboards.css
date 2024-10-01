@@ -2,7 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -51,7 +51,7 @@ body {
 
 .dash-right .avisos .div-form textarea {
   width: 95%;
-  border: 3px solid  #212124;
+  border: 3px solid #212124;
   background-color: white;
   border-radius: 10px;
 }
@@ -82,14 +82,15 @@ body {
   scrollbar-width: none;
   height: fit-content;
   padding: 0;
-  background-color: #42a5f5;
+  /* background-color: #42a5f5; */
   border: 2px solid #D9C9BA;
   border-radius: 10px;
   min-height: 60vh;
   flex-direction: column;
-gap: 10px;
+  gap: 10px;
 }
-.card_funcionario{
+
+.card_funcionario {
   width: 100%;
   height: 12%;
   /* padding: 0 15%; */
@@ -105,23 +106,26 @@ gap: 10px;
 }
 
 .titulo_mus {
-  color: #10101e;
+  color: #D9C9BA;
   width: auto;
   font-weight: 500;
-  
 
+margin-top: 10%;
   text-align: center;
 }
-  .cont_musica{
-    display: flex;
-    justify-content: center;
-    background-color: #42a5f5;
-    height: 100%;
-    width:90%;
-    margin: auto;
-    
 
-  }
+.cont_musica {
+  display: flex;
+  justify-content: center;
+  /* background-color: #42a5f5; */
+  height: 100%;
+  width: 90%;
+  margin: auto;
+  flex-direction: column;
+  
+
+
+}
 
 .publicacao-btn-editar {
   cursor: pointer;
@@ -181,12 +185,12 @@ gap: 10px;
   width: 90%;
   position: relative;
   height: 100vh;
-   overflow: auto; 
-   margin-left: 270px;
+  overflow: auto;
+  margin-left: 270px;
 
 
-   display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .dash2 {
@@ -196,21 +200,21 @@ gap: 10px;
   align-items: center;
 }
 
-.dash2 .canvas3{
+.dash2 .canvas3 {
   height: 99%;
   width: 40%;
   margin: auto;
 }
 
-.grafico{
+.grafico {
   margin-right: auto;
-  
+
   height: 100px;
   width: 100px;
-  
+
 }
 
-.espaco{
+.espaco {
   gap: 80px;
 }
 
@@ -521,43 +525,4 @@ canvas {
   padding: 10px 15px;
   margin-bottom: 100px;
   cursor: pointer;
-}
-
-/* gráfico com porcentagem */
-
-.canvas-con {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 365px;
-  position: relative;
-}
-
-.canvas-con-inner {
-  height: 100%;
-}
-
-.canvas-con-inner, .legend-con {
-  display: inline-block;
-}
-
-.legend-con {
-  font-family: Roboto;
-  display: inline-block;
-}
-.legend-con ul {
-  list-style: none;
-}
-.legend-con li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 4px;
-}
-.legend-con li span {
-  display: inline-block;
-}
-.legend-con li span.chart-legend {
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
 }
