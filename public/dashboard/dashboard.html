@@ -207,6 +207,7 @@
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
     var id;
+    /*Ranking dos usuários que cadastraram músicas*/
     function listarPorUsuario(id) {
         id = sessionStorage.ID_USUARIO;
         fetch(`/medidas/listar/${id}`)
@@ -254,7 +255,7 @@
                 }
             })
     }
-    /* função do ranking*/
+    /* Ranking das músicas cadastradas pelo usúario*/
     function listarUsuario() {
 
         fetch(`/medidas/listar`)
@@ -322,6 +323,8 @@
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+
+    //Gráfico da cruzadinha
     function plotarGrafico(resposta) {
 
         console.log('iniciando plotagem do gráfico...');
@@ -333,7 +336,7 @@
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'N° de tentativas da cruzadinha',
+                label: 'N° de acertos da cruzadinha',
                 data: [],
                 fill: false,
                  borderColor: 'rgb(75, 192, 192)',
@@ -393,6 +396,7 @@
             });
     }
 
+    //Gráfico de músicas cadastradas pelo usuário
     function plotarGrafico2(resposta) {
         console.log('iniciando plotagem do gráfico...');
 
@@ -473,6 +477,7 @@
 
     }
 
+    //Gráfico de músicas cadastradas pelo site
     function plotarGrafico3(resposta) {
         console.log('iniciando plotagem do gráfico...');
 
@@ -535,8 +540,8 @@
                         beginAtZero: true
                     }
                 },
-                /*porcentagem aparecer ao colocar o mouse em cima
-                coloque o label aqui*/
+                /*porcentagem aparecer ao colocar o mouse em cima*/
+                /*recebe a quantidade de dados(músicas) e divide pela labels(gêneros)*/
                 tooltips: {
                     enabled: true,
                     mode: 'label',
@@ -560,7 +565,7 @@
                 // }
                 ,
                 /*plugin para porcentagem */
-                plugins: {
+                /*plugins: {
                     datalabels: {
                         formatter: (value, ctx) => {
                             let sum = 0;
@@ -573,7 +578,7 @@
                         },
                         color: '#fff'
                     }
-                }
+                }*/
             }
         }
 
