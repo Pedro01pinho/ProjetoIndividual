@@ -18,7 +18,7 @@ function buscarUltimasMedidas(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
-
+    /*função do gráfico de músicas cadastradas pelo usuário logado*/
     function buscarGeneroUsuario(req, res){
 
         var id = req.params.id;
@@ -35,7 +35,7 @@ function buscarUltimasMedidas(req, res) {
             res.status(500).json(erro.sqlMessage);
         });
     }
-
+    /*função do gráfico de músicas cadastradas pelo site*/
     function buscarGenero(req, res){
 
 
@@ -51,7 +51,7 @@ function buscarUltimasMedidas(req, res) {
              res.status(500).json(erro.sqlMessage);
          });
     }
-
+    /*função do ranking de músicas favoritas do usuário*/
     function listarPorUsuario(req, res) {
         var id = req.params.id;
     

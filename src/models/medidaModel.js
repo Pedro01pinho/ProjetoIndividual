@@ -7,14 +7,14 @@ function buscarUltimasMedidas(id) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-
+/*função do ranking de músicas favoritas do usuário*/
 function listarPorUsuario(id) {
     var instrucaoSql = `select m.nome, m.Album , m.genero from musica m join usuario u on m.fkUsuario = u.id where m.fkUsuario = ${id};`;
 
     console.log("executando a instrução SQL: \n" + instrucaoSql);
- return database.executar(instrucaoSql);
+    return database.executar(instrucaoSql);
 }
-/* comando do mysql para ranking*/ 
+/* função do ranking de usuários com mais músicas cadastradas*/
 function listarUsuario() {
     var instrucaoSql = `SELECT u.nome, COUNT(m.nome) AS quantidade_musicas
     FROM usuario u
@@ -23,29 +23,29 @@ function listarUsuario() {
     ORDER BY quantidade_musicas desc;`;
 
     console.log("executando a instrução SQL: \n" + instrucaoSql);
- return database.executar(instrucaoSql);
+    return database.executar(instrucaoSql);
 }
-
+/*função do gráfico de músicas cadastradas pelo usuário logado*/
 function buscarGeneroUsuario(id) {
- var instrucaoSql = `SELECT COUNT(m.genero) AS quantidade_generos, m.genero, u.nome  
+    var instrucaoSql = `SELECT COUNT(m.genero) AS quantidade_generos, m.genero, u.nome  
 FROM musica m 
 JOIN usuario u ON m.fkUsuario = u.id 
 WHERE u.id = ${id} 
 GROUP BY m.genero, u.nome;`;
 
- console.log("executando a instrução SQL: \n" + instrucaoSql);
- return database.executar(instrucaoSql);
+    console.log("executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
-
+/*função do gráfico de músicas cadastradas pelo site*/
 function buscarGenero() {
     var instrucaoSql = `SELECT COUNT(m.genero) AS qtd_generos, m.genero, u.nome  
    FROM musica m 
    JOIN usuario u ON m.fkUsuario = u.id  
    GROUP BY m.genero, u.nome;`;
-   
+
     console.log("executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
-   }
+}
 
 function buscarMedidasEmTempoReal(idAquario) {
 
